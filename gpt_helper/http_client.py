@@ -1,9 +1,9 @@
-# gpt_helper/http_client.py
+"""HTTP client module for asynchronous OpenAI API requests."""
 
 import os
 import httpx
 import asyncio
-from.logger import logger
+from .logger import logger
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 URL = "https://api.openai.com/v1/chat/completions"
@@ -12,8 +12,12 @@ HEADERS = {
     "Content-Type": "application/json"
 }
 
-async def async_ask(prompt: str, system_msg: str = "Você é um assistente educado.", model="gpt-4o-mini") -> str:
-    """Envia uma pergunta para o modelo e retorna a resposta."""
+async def async_ask(
+    prompt: str,
+    system_msg: str = "You are a polite assistant.",
+    model: str = "gpt-4o-mini"
+) -> str:
+    """Asynchronously send a prompt with a system message to the model and return the completion."""
     payload = {
         "model": model,
         "messages": [
@@ -31,8 +35,12 @@ async def async_ask(prompt: str, system_msg: str = "Você é um assistente educa
         logger.info(f"Recebido: {len(content)} caracteres.")
         return content.strip()
     
-async def async_stream_ask(prompt: str, system_msg: str = "Você é um assistente educado.", model="gpt-4o-mini") -> str:
-    """Envia uma pergunta para o modelo e retorna a resposta em streaming."""
+async def async_stream_ask(
+    prompt: str,
+    system_msg: str = "You are a polite assistant.",
+    model: str = "gpt-4o-mini"
+) -> str:
+    """Asynchronously send a prompt to the model with streaming and return the full response."""
     payload = {
         "model": model,
         "stream": True,

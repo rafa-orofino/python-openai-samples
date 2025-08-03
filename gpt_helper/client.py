@@ -9,15 +9,15 @@ from .logger import logger
 _COST_PER_1K_TOKENS = 0.002 # USD, gpt-4o-mini - ajuste quando mudar modelo
 
 class GPTClient:
-    """Cliente para interagir com a API OpenAI."""
+    """Client to interact with the OpenAI API."""
     def __init__(self, model: str = "gpt-4o-mini"):
-        """Inicializa o cliente com o modelo especificado."""
+        """Initialize the client with the specified model."""
         self.model = model
         self.client = OpenAI()
         self.encoding = tiktoken.encoding_for_model(model)
 
     def ask(self, prompt: str, system_msg: str | None = None) -> str:
-        """Envia uma pergunta para o modelo e retorna a resposta."""
+        """Send a prompt to the model and return the response content."""
         messages = []
         
         if system_msg:
@@ -41,14 +41,14 @@ class GPTClient:
     
     # fallback se API não trouxer usage
     def _count_tokens(self, messages: list[dict]) -> int:
-        """Conta os tokens de uma lista de mensagens."""
+        """Count tokens in a list of messages using model encoding."""
         return sum(len(self._encoding.encode(m["content"])) for m in messages)
     
 # Função utilitária - padrão similar ao que usávamos
 _client_singleton: GPTClient | None = None
 
 def ask_llm(prompt: str, system_msg: str | None = "Você é um assistente educado.") -> str:
-    """Envia uma pergunta para o modelo e retorna a resposta."""
+    """Send a question to the model and return its answer."""
     global _client_singleton
 
     if _client_singleton is None:

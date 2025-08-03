@@ -1,12 +1,12 @@
-# gpt_helper/logger.py
+"""Logging utility for gpt_helper modules."""
 import logging
 import sys
 
 def _build_logger(name: str = "gpt_helper", level: str | int = "INFO") -> logging.Logger:
-    """Cria e configura um logger com o nome e nível especificados."""
+    """Create and configure a logger with the given name and level."""
     logger = logging.getLogger(name)
     
-    if logger.handlers: # evita adicionar duplicado
+    if logger.handlers: # avoid adding duplicate handlers
         return logger
     
     logger.setLevel(level)

@@ -1,64 +1,84 @@
 # Hello GPT
-Este é um projeto de exemplo criado para aprendizado de python, que demonstra como interagir com a API da OpenAI usando Python, utilizando tanto chamadas síncronas quanto assíncronas. O projeto inclui exemplos de uso da API de chat, streaming e concorrência, utilizando biblioteca da OpenAI e consumo direto da API.
+Hello GPT is a sample Python project demonstrating how to interact with the OpenAI API using both synchronous and asynchronous calls. It includes examples of chat completions, streaming, concurrent requests, and document indexing, leveraging the official OpenAI Python library and direct API consumption.
 
-# Pré-requisitos
-Antes de executar o projeto, certifique-se de ter os seguintes pré-requisitos instalados:
+# Prerequisites
+Before running this project, ensure you have:
+- Python 3.8 or higher
+- [Poetry](https://python-poetry.org/) (dependency and virtual environment manager)
 
-- Python 3.8 ou superior
-- Poetry (gerenciador de dependências e ambientes virtuais)
-
-# Instalação
-1. Clone o repositório:
+# Installation
+1. Clone the repository:
    ```bash
-   git clone <URL_DO_REPOSITORIO>
+   git clone https://github.com/rafa-orofino/python-openai-samples.git
+   cd python-openai-samples
    ```
-
-2. Instale as dependências:
+2. Install dependencies:
    ```bash
    poetry install
    ```
-
-3. Ative o ambiente virtual:
+3. Activate the virtual environment:
    ```bash
    poetry shell
    ```
 
-# Configuração
-Certifique-se de definir a variável de ambiente `OPENAI_API_KEY` com sua chave de API da OpenAI. Você pode fazer isso no terminal antes de executar o projeto:
+# Configuration
+Set your OpenAI API key in the environment:
 ```bash
-export OPENAI_API_KEY="sua_chave_aqui"
+export OPENAI_API_KEY="your_api_key_here"
 ```
 
-# Execução
-Para executar o projeto, você pode usar o seguinte comando:
+# Usage
+### Running example scripts
+Use Poetry to run any script in the `scripts/` folder:
 ```bash
-poetry run python scripts/<script_desejado>.py
+poetry run python scripts/<script_name>.py
 ```
+Available examples:
+- `streaming.py`: Demonstrates OpenAI streaming responses
+- `test_concurrency.py`: Tests concurrent requests
+- `mem_chat.py`: Chat with memory storage
+- `named_chat.py`: Persistent chats with session names
+- `index_sample.py`: Indexing documents for later queries
+- `ask_docs.py`: Asking questions against indexed documents
 
-## Scripts Disponíveis
-- `streaming.py`: Demonstra como usar a API de streaming da OpenAI.
-- `test_concorrencia.py`: Testes de concorrência para a API.
-- `mem_chat.py`: Demonstra como usar o modelo de chat com memória.
-- `named_chat.py`: Demonstra como usar o modelo de chat com nomes personalizados para sessões.
-- `index_sample.py`: Exemplo de como indexar documentos para consulta posterior.
-- `ask_docs.py`: Demonstra como fazer perguntas sobre documentos indexados.
-
-# CLI
-Você também pode interagir com a API usando a interface de linha de comando (CLI) fornecida pelo Typer. Para usar a CLI, execute o seguinte comando:
+### Command-line Interface (CLI)
+The `gpt_helper` package provides a CLI powered by Typer. Run:
 ```bash
-poetry run python -m gpt_helper <comando> <argumentos>
+poetry run python -m gpt_helper <command> [options]
 ```
+Commands:
+- `ask`: Send a prompt to the model
+  - `--session TEXT`  Name for chat session
+  - `--question TEXT`  Question to ask
+- `export`: Export chat history to a file
+  - `--session TEXT`  Name of chat session
+  - `--format [md|txt]`  Output format (default: md)
 
-## Comandos Disponíveis
-- `ask`: Faz uma pergunta ao modelo de linguagem.
-    - nome_sessão: Nome da sessão de chat.
-    - pergunta: Pergunta a ser feita ao modelo.
-- `export`: Exporta o histórico de chat para um arquivo.
-    - nome_sessão: Nome da sessão de chat.
-    - formato (opcional, default: md): Formato de exportação (ex: md ou txt).
-
-# API
-A API do projeto é baseada no FastAPI e pode ser executada localmente. Para iniciar o servidor, execute:
+### Web API
+This project includes a FastAPI server exposing the same endpoints. Start it with:
 ```bash
 poetry run uvicorn gpt_helper.api:app --reload
 ```
+Access docs at `http://localhost:8000/docs`.
+
+---
+## Testing
+Run the test suite with pytest:
+```bash
+poetry run pytest
+```
+
+## Project Structure
+```
+.
+├── scripts/           Example scripts demonstrating SDK features
+├── gpt_helper/        Core library: client, logger, API, CLI
+├── tests/             Unit tests with pytest
+├── hello_gpt.py       Simple CLI application example
+├── pyproject.toml     Poetry config and dependencies
+├── README.md          Project documentation
+└── LICENSE            MIT License
+```
+
+## License
+This project is licensed under the MIT License. See `LICENSE` for details.

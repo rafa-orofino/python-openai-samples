@@ -1,19 +1,19 @@
 # gpt_helper/api.py
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from gpt_helper.chatbot import Chatbot
-import asyncio
 
 app = FastAPI()
 
 class Ask(BaseModel):
-    session: str
-    prompt: str
+    """Request body schema for the /ask endpoint."""
+    session: str  # Name of the chat session (used for file storage)
+    prompt: str   # Text prompt to send to the chatbot
 
 @app.post("/ask")
 async def ask_chatbot(ask: Ask):
-    """Faz uma pergunta ao chatbot e salva o histórico localmente."""
+    """Handle POST /ask: send prompt to Chatbot, save conversation history, and return response."""
     try:
+        from gpt_helper.chatbot import Chatbot
         bot = Chatbot(f"chats/{ask.session}.json")
         response = await bot.ask(ask.prompt)
         return {"response": response, "session": ask.session}

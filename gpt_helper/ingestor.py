@@ -1,4 +1,4 @@
-# gpt_helper/ingestor.py
+"""ChromaDB ingestion utilities: manage collections and documents."""
 import os
 import chromadb
 from chromadb.utils.embedding_functions import OpenAIEmbeddingFunction
@@ -18,16 +18,17 @@ def create_collection() -> chromadb.Collection:
     return client.create_collection(COLLECTION_NAME, embedding_function=embedding_fn_)
 
 def load_document(name: str, content: str):
-    """Load a document into the ChromaDB collection."""
+    """Load a text document into the ChromaDB collection, splitting into fixed-size chunks."""
     collection = create_collection()
-    chunks = [content[i:i+500] for i in range(0, len(content), 500)] # Chunks simples
+    # Simple chunking by 500 characters
+    chunks = [content[i:i+500] for i in range(0, len(content), 500)]
 
     collection.add(
         documents=chunks,
         ids=[f"{name}_{i}" for i in range(len(chunks))]
     )
 
-    print(f"✅ Documento '{name}' indexado com {len(chunks)} trechos.")
+    print(f"✅ Document '{name}' indexed into {len(chunks)} chunks.")
 
 def query_by_similarity(query: str, n_results: int = 3):
     """Query the collection by similarity."""

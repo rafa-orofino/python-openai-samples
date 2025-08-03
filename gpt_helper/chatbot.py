@@ -6,7 +6,9 @@ from typing import Literal
 Role = Literal["user", "assistant", "system"]
 
 class Chatbot:
+    """Chatbot session handler with persistent history and token management."""
     def __init__(self, file_path: str, system_msg: str = "Você é um assistente educado."):
+        """Initialize Chatbot: load or create history file and set up model parameters."""
         self.path = Path(file_path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -22,6 +24,7 @@ class Chatbot:
             self._save()
     
     async def ask(self, prompt: str) -> str:
+        """Append user prompt, send to model asynchronously with streaming, save and return the response."""
         self.messages.append({"role": "user", "content": prompt})
         context = self._context_truncate()
         response = await async_stream_ask_with_context(context, self.model)
@@ -32,15 +35,15 @@ class Chatbot:
         return response
     
     def _save(self):
-        """Salva as mensagens no arquivo JSON."""
+        """Save message history to JSON file."""
         self.path.write_text(json.dumps(self.messages, ensure_ascii=False, indent=2), encoding="utf-8")
     
     def show_history(self):
-        """Exibe o histórico de mensagens."""
+        """Return chat history excluding system messages."""
         return [(msg["role"], msg["content"]) for msg in self.messages if msg["role"] != "system"]
     
     def _context_truncate(self) -> list[dict]:
-        """Trunca o contexto para não exceder o limite de tokens do modelo."""
+        """Trim message list to fit within the model's maximum token limit."""
         msgs = self.messages[:]
         system = [msg for msg in msgs if msg["role"] == "system"]
         others = [msg for msg in msgs if msg["role"] != "system"]
@@ -51,11 +54,11 @@ class Chatbot:
         return system + others
     
     def _count_tokens(self, messages: list[dict]) -> int:
-        """Conta os tokens de uma lista de mensagens."""
+        """Count tokens in a list of messages using model encoding."""
         return sum(len(self.encoding.encode(msg["content"])) for msg in messages)
     
     def export(self, format: str = "md") -> Path:
-        """Exporta o histórico de mensagens para um arquivo no formato especificado."""
+        """Export message history to a file in the given format and return its path."""
         destination = self.path.with_suffix(f".{format}")
         lines = []
 
@@ -69,7 +72,7 @@ class Chatbot:
         return destination
 
 async def async_stream_ask_with_context(messages: list[dict], model: str = "gpt-4o-mini") -> str:
-    """Envia uma pergunta para o modelo com o contexto das mensagens anteriores."""
+    """Asynchronously send context messages to model via HTTP streaming and return full response."""
     from .http_client import URL, HEADERS
     import httpx
 
