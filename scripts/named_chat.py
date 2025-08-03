@@ -2,21 +2,21 @@ import asyncio
 from gpt_helper.chatbot import Chatbot
 
 async def main():
-    name = input("Digite um nome para a asessão (ex: cliente_acme): ").strip().replace(" ", "_")
+    name = input("Enter a session name (e.g. client_acme): ").strip().replace(" ", "_")
     file = f"chats/{name}.json"
     bot = Chatbot(file)
 
     while True:
-        user_input = input("\n🤔 Você: ").strip()
+        user_input = input("\n🤔 You: ").strip()
 
-        if user_input.lower() in ["sair", "exit", "quit"]:
-            print("👋 Até logo!")
+        if user_input.lower() in ["exit", "quit"]:
+            print("👋 Goodbye!")
             break
 
         if user_input.startswith("/export"):
             format = user_input.split(" ", 1)[-1] if " " in user_input else "md"
             path = bot.export(format)
-            print(f"📁 Histórico exportado para {path.resolve()}")
+            print(f"📁 History exported to {path.resolve()}")
             continue
 
         if user_input == "/history":
@@ -25,9 +25,9 @@ async def main():
             continue
 
         if user_input == "/reset":
-            bot.messages = [{"role": "system", "content": "Você é um assistente educado."}]
+            bot.messages = [{"role": "system", "content": "You are a polite assistant."}]
             bot._save()
-            print("⚠️ Histórico da conversa foi reiniciado.")
+            print("⚠️ Conversation history has been reset.")
             continue
 
         await bot.ask(user_input)

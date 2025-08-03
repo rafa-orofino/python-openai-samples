@@ -2,11 +2,11 @@ import asyncio
 from gpt_helper.http_client import async_ask
 
 questions = [
-    "Qual a capital da Inglaterra?",
-    "Qual o maior oceano d mundo?",
-    "Quem escreveu Dom Casmurro?",
-    "O que é aprendizado supervisionado?",
-    "Me explique o que é OpenAI."
+    "What is the capital of England?",
+    "What is the largest ocean in the world?",
+    "Who wrote 'Dom Casmurro'?",
+    "What is supervised learning?",
+    "Explain what OpenAI is."
 ]
 
 async def main():
