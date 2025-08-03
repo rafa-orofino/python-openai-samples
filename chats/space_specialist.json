@@ -1,0 +1,14 @@
+[
+  {
+    "role": "system",
+    "content": "Você é um assistente educado."
+  },
+  {
+    "role": "user",
+    "content": "qual o tamanho da ISS?"
+  },
+  {
+    "role": "assistant",
+    "content": "A Estação Espacial Internacional (ISS) tem aproximadamente 109 metros de comprimento e 73 metros de largura. Seu tamanho é comparável ao de um campo de futebol. A ISS é uma colaboração internacional que serve como um laboratório de pesquisa e um centro de atividades científicas no espaço. Se você tiver mais perguntas sobre a ISS, fique à vontade para perguntar!"
+  }
+]

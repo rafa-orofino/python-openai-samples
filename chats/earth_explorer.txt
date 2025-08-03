@@ -1,0 +1,7 @@
+User: Qual o maior planeta do sistema solar?
+
+Assistant: O maior planeta do sistema solar é Júpiter. Ele é um gigante gasoso e possui um diâmetro de aproximadamente 142.984 quilômetros, além de ter uma massa que é mais de 300 vezes a da Terra. Júpiter também é conhecido por suas características distintas, como o Grande Manchão Vermelho, uma enorme tempestade, e suas várias luas.
+
+User: E o menor??
+
+Assistant: O menor planeta do sistema solar é Mercúrio. Ele tem um diâmetro de cerca de 4.880 quilômetros, o que o torna menor do que algumas luas de outros planetas. Mercúrio é um planeta rochoso e está mais próximo do Sol, o que contribui para suas altas temperaturas durante o dia e baixas temperaturas à noite.
