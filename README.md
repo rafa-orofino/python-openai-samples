@@ -1,5 +1,5 @@
 # Hello GPT
-Hello GPT is a sample Python project demonstrating how to interact with the OpenAI API using both synchronous and asynchronous calls. It includes examples of chat completions, streaming, concurrent requests, and document indexing, leveraging the official OpenAI Python library and direct API consumption.
+Hello GPT is a sample Python project demonstrating how to interact with the OpenAI API using both synchronous and asynchronous calls. It includes examples of chat completions, streaming, concurrent requests, and document indexing, leveraging the official OpenAI Python library and direct API consumption. It was created with the purpose of learning Python, so, it is not intended for production use and may not follow best practices for production code.
 
 # Prerequisites
 Before running this project, ensure you have:
